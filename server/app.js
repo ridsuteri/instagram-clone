@@ -5,9 +5,14 @@ const { MONGOURI } = require("./keys");
 
 const PORT = 5000;
 
-mongoose.connect(MONGOURI,{
-    useNewUrlParser: true,
-    useUnifiedTopology: true
+require("./models/user");
+
+app.use(express.json());
+app.use(require("./routes/auth"));
+
+mongoose.connect(MONGOURI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
 });
 
 mongoose.connection.on("connected", () => {
@@ -15,22 +20,8 @@ mongoose.connection.on("connected", () => {
 });
 
 mongoose.connection.on("error", (err) => {
-  console.log("error connecting to mongo",err);
+  console.log("error connecting to mongo", err);
 });
-// const customMiddleware = (req, res, next) => {
-//   console.log("middleware executed");
-//   next();
-// };
-
-// app.get("/", (req, res) => {
-//   console.log("home");
-//   res.send("Hello world");
-// });
-
-// app.get("/about", customMiddleware, (req, res) => {
-//   console.log("about page");
-//   res.send("about page");
-// });
 
 app.listen(PORT, () => {
   console.log(`Server is up and running on port : ${PORT}`);
