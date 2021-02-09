@@ -1,4 +1,6 @@
 const express = require("express");
+const mongoose = require("mongoose");
+const User = mongoose.model("User");
 
 const router = express.Router();
 
@@ -14,8 +16,30 @@ router.post("/signup", (req, res) => {
   if (!email || !name || !password) {
     return res.status(422).json({ error: "Please fill all details" });
   }
+  User.findOne({ email })
+    .then((savedUser) => {
+      if (savedUser) {
+        return res.status(422).json({ error: "Email already in use" });
+      }
 
-  res.json({ message: "successfully posted" });
+      const user = new User({
+        email,
+        name,
+        password,
+      });
+
+      user
+        .save()
+        .then((user) => {
+          res.json({ message: "Signup successfull" });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
 
 module.exports = router;
