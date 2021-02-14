@@ -10,7 +10,7 @@ const Home = () => {
         </div>
 
         <div className="card-content">
-          <i class="material-icons" style={{ color: "red" }}>
+          <i className="material-icons" style={{ color: "red" }}>
             favorite
           </i>
           <h6>title here</h6>
@@ -25,7 +25,7 @@ const Home = () => {
         </div>
 
         <div className="card-content">
-          <i class="material-icons" style={{ color: "red" }}>
+          <i className="material-icons" style={{ color: "red" }}>
             favorite
           </i>
           <h6>title here</h6>
@@ -40,7 +40,7 @@ const Home = () => {
         </div>
 
         <div className="card-content">
-          <i class="material-icons" style={{ color: "red" }}>
+          <i className="material-icons" style={{ color: "red" }}>
             favorite
           </i>
           <h6>title here</h6>
@@ -55,7 +55,7 @@ const Home = () => {
         </div>
 
         <div className="card-content">
-          <i class="material-icons" style={{ color: "red" }}>
+          <i className="material-icons" style={{ color: "red" }}>
             favorite
           </i>
           <h6>title here</h6>
