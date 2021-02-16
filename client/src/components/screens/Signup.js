@@ -15,7 +15,7 @@ const Signup = () => {
       M.toast({ html: "invalid email", classes: "#c62828 red darken-3" });
       return;
     }
-    fetch("http://localhost:5000/signup", {
+    fetch("/signup", {
       method: "post",
       headers: {
         "Content-Type": "application/json",
@@ -35,6 +35,9 @@ const Signup = () => {
           M.toast({ html: data.message, classes: "#388e3c green darken-2" });
           history.push("/signin");
         }
+      })
+      .catch((err) => {
+        console.log(err);
       });
   };
   return (
