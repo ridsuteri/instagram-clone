@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import M from "materialize-css";
 import { useHistory } from "react-router-dom";
 const CreatePost = () => {
@@ -7,6 +7,39 @@ const CreatePost = () => {
   const [body, setBody] = useState("");
   const [image, setImage] = useState("");
   const [url, setUrl] = useState("");
+
+  useEffect(() => {
+    if (url) {
+      fetch("/createpost", {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("jwt"),
+        },
+        body: JSON.stringify({
+          title,
+          body,
+          pic: url,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          // console.log(data);
+          if (data.error) {
+            M.toast({ html: data.error, classes: "#c62828 red darken-3" });
+          } else {
+            M.toast({
+              html: "Created post successfully",
+              classes: "#388e3c green darken-2",
+            });
+            history.push("/");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [url]);
 
   const postDetails = () => {
     const data = new FormData();
@@ -20,36 +53,8 @@ const CreatePost = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        // console.log(data);
-        setUrl(data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    fetch("/createpost", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        title,
-        body,
-        pic: url,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        // console.log(data);
-        if (data.error) {
-          M.toast({ html: data.error, classes: "#c62828 red darken-3" });
-        } else {
-          M.toast({
-            html: "Created post successfully",
-            classes: "#388e3c green darken-2",
-          });
-          history.push("/");
-        }
+        console.log(data);
+        setUrl(data.url);
       })
       .catch((err) => {
         console.log(err);
