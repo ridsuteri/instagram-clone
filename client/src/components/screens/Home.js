@@ -118,7 +118,25 @@ const Home = () => {
       });
   };
 
-  
+  const deleteComment = (postid, commentid) => {
+    fetch(`/deletecomment/${postid}/${commentid}`, {
+      method: "delete",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("jwt"),
+      },
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        const newData = data.map((item) => {
+          if (item._id == result._id) {
+            return result;
+          } else {
+            return item;
+          }
+        });
+        setData(newData);
+      });
+  };
   return (
     <div className="home">
       {data.map((item) => {
@@ -174,9 +192,20 @@ const Home = () => {
                   <h6 key={record._id}>
                     <span style={{ fontWeight: "500" }}>
                       {record.postedBy.name}
-                    </span>
-                    {" : "}
+                    </span>{" "}
                     {record.text}
+                    {(item.postedBy._id == state._id ||
+                      record.postedBy._id == state._id) && (
+                      <i
+                        className="material-icons"
+                        style={{
+                          float: "right",
+                        }}
+                        onClick={() => deleteComment(item._id, record._id)}
+                      >
+                        delete
+                      </i>
+                    )}
                   </h6>
                 );
               })}
