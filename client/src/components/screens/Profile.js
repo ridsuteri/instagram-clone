@@ -15,7 +15,7 @@ const Profile = () => {
         // console.log(result);
         setPics(result.mypost);
       });
-  });
+  }, []);
   return (
     <div style={{ maxWidth: "550px", margin: "0px auto" }}>
       <div
@@ -33,7 +33,7 @@ const Profile = () => {
           />
         </div>
         <div>
-          <h4>{state?state.name:"Loading"}</h4>
+          <h4>{state ? state.name : "Loading"}</h4>
           <div
             style={{
               display: "flex",
