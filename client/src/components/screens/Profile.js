@@ -34,6 +34,7 @@ const Profile = () => {
         </div>
         <div>
           <h4>{state ? state.name : "Loading"}</h4>
+          <h5>{state ? state.email : "Loading"}</h5>
           <div
             style={{
               display: "flex",

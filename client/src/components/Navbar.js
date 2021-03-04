@@ -8,6 +8,9 @@ const Navbar = () => {
     if (state) {
       return [
         <li>
+          <Link to="/myfeed">Feed</Link>
+        </li>,
+        <li>
           <Link to="/create">Add Post</Link>
         </li>,
         <li>
